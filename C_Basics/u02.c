@@ -2,7 +2,7 @@
 
 int main(){
 
-    unsigned char x = -300;
+    unsigned int x = -400;
 
-    printf("%d", x);
+    printf("%u", x);
 }
