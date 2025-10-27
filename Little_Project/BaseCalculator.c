@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <limits.h>
 
 void binaryRep(unsigned int n){
     // i starts at 31(highest bit)
     printf("Binary: ");
-    for(int i = sizeof(n)*8-1; i>=0; i--){
+    for(int i = sizeof(n) * CHAR_BIT - 1; i>=0; i--){
         int bit = (n>>i) & 1;
         printf("%d", bit);
 
@@ -12,6 +13,7 @@ void binaryRep(unsigned int n){
             printf(" ");
         }
     }
+    printf("\n");
 }
 
 int main(){
@@ -19,7 +21,10 @@ int main(){
     unsigned int n;
 
     printf("Enter Any Number you want to convert: ");
-    scanf("%d", &num);
+    if(scanf("%d", &num) != 1){
+        printf("Invalid Input\n");
+        return 1;
+    }
 
     n = (unsigned int) num;    
 
