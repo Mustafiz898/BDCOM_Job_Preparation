@@ -1,10 +1,9 @@
 #include <stdio.h>
-#include <limits.h>               // CHAR_BIT for protable bit calculation  
 
 void binaryRep(unsigned int n){
     // i starts at 31(highest bit)
     printf("Binary: ");
-    for(int i = sizeof(n) * CHAR_BIT - 1; i>=0; i--){
+    for(int i = sizeof(n)*8-1; i>=0; i--){
         int bit = (n>>i) & 1;
         printf("%d", bit);
 
@@ -13,18 +12,14 @@ void binaryRep(unsigned int n){
             printf(" ");
         }
     }
-    printf("\n");
 }
 
 int main(){
-    int num; // Signed variable to hold signed user input 
-    unsigned int n; // Unsigned variable to hold negetive number using 2's complemnet bit pattern 
+    int num;
+    unsigned int n;
 
     printf("Enter Any Number you want to convert: ");
-    if(scanf("%d", &num) != 1){      // Checking for invalid input 
-        printf("Invalid Input\n");
-        return 1;
-    }
+    scanf("%d", &num);
 
     n = (unsigned int) num;    
 
