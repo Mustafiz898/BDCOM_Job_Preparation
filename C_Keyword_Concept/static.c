@@ -5,6 +5,11 @@ void fun(){
     num++;
     printf("The value of num: %d\n", num);
 }
+
+// suppose if I use 'num' as global variable instead of static then the problem I'll face is that 
+// the variable 'num' will be accessed by all the function in this program
+// The value of 'num' can be changed accidentaly sometimes
+
 int main(){
     
     fun(); // value = 6 
