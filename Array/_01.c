@@ -16,6 +16,7 @@ int main(){
 float calculateAverage(int arr[], int n){
     int sum = 0;
     float avg;
+    
     for(int item = 0; item < n; item++){
         sum += arr[item];
     }
