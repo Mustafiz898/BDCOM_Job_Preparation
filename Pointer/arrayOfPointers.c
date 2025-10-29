@@ -1,11 +1,14 @@
 #include <stdio.h>
 
 int main(){
-    char *name[] = {"Mustafiz", "Jasmin", "Shuvo", "Jannat"}; // array of pointers 
-    // Suppose I want to access 'f' from the string 'Mujstafiz'
+    int arr[] = {10, 20, 30, 50, 60, 70};
+    int *arrPtr[] = {&arr[0], &arr[1], &arr[2], &arr[3], &arr[4], &arr[5]};
 
-    printf("%c", name[0][5]);
-    
+    for(int item = 0; item < 6; item++){
+
+        printf("%d", *(arrPtr + item));
+        if(item < 5) printf(", ");
+    }
+
     return 0;
-
 }
