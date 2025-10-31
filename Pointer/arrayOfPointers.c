@@ -6,7 +6,8 @@ int main(){
 
     for(int item = 0; item < 6; item++){
 
-        printf("%d", *(arrPtr + item));
+        printf("%d", **(arrPtr + item));
+        // printf("%d", *arrPtr[item]);
         if(item < 5) printf(", ");
     }
 
