@@ -7,7 +7,8 @@ int main(){
 
     printf("How many value wants to input? ");
     scanf("%d", &n);
-    getchar();
+    int c;
+    while( (c = getchar()) != '\0' && c != EOF) {};  // escaping input buffer
 
     ptr = (char *) malloc((n+1) * sizeof(char));  // allocating memory
     if(ptr == NULL){
@@ -24,11 +25,9 @@ int main(){
     start = ptr; // keeping the pointer to the starting position 
 
     // Printing output 
-    while(*ptr!='\0'){
-        printf("%c", *ptr);
-        ptr++;
-    }
+    printf("%s", ptr);
     printf("\n"); // for clear output 
+
     free(start); // Finally freeing memory
     start = NULL; // discarding dangling popinter  
     return 0;
