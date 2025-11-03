@@ -3,7 +3,7 @@
 #include <string.h>
 
 struct student{
-    char *name;
+    const char *name;
     float age;
     int id;
 }s1,s2;
