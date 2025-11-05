@@ -5,7 +5,13 @@ int main(){
     FILE * fptr= NULL;
     // char arr[10];
     char * ptr;
+
+    
     ptr = (char *)calloc(10, sizeof(char));
+    if(ptr == NULL){
+        printf("Memory allocation Failed");
+        return 1;
+    }
 
 
     fptr = fopen("random01", "r");
@@ -14,8 +20,12 @@ int main(){
         exit(1);
     }
     
-    while(!feof(fptr)){
+   /* while(!feof(fptr)){
         fgets(ptr, 10, fptr);
+        printf("%s", ptr);
+    }*/
+
+    while(fgets(ptr, 10, fptr) != NULL){
         printf("%s", ptr);
     }
 
