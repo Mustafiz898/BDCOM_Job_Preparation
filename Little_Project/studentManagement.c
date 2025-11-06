@@ -38,7 +38,13 @@ int main(){
     while(1){
         printf("\nEnter your choice: ");
 
-        scanf("%d", &choice);
+        if(scanf("%d", &choice) != 1) {
+        // invalid (non-integer) input — clear buffer
+        while ((getchar()) != '\n' && !feof(stdin)) {}
+        printf("Invalid input! Please enter a number.\n");
+        continue; // re-prompt
+        }
+
         printf("\n");
         switch(choice){
             case 1:
