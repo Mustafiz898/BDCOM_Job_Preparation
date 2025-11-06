@@ -19,10 +19,12 @@ int main() {
     }
     
     fseek(file, 0L, SEEK_END);
-    fputs("Cool Down. ", file);
+    fputs("Cool Down.", file);
+    printf("Position: %d\n", ftell(file)); // ftell() is used to findout the current position 
 
 
-    rewind(file);
+    // rewind(file);  // rewind() is used to move the pointer to the beginning 
+    fseek(file, -10,SEEK_END);  // SEEK_END, SEEK_CUR, SEEK_SET
    
 
     int ch, len = 0;
