@@ -118,8 +118,7 @@ void Display(){
 //__________________Insertion at beginning________________
 
 void add_beginning(){
-    node * temp1;
-    temp1 = Head;
+    int ch;
 
     node *s_Node = (node*) malloc(sizeof(node));
     if(s_Node == NULL){
@@ -129,10 +128,10 @@ void add_beginning(){
 
     printf("Enter the data: ");
     scanf("%d", &s_Node->data);
-    while(getchar()!= '\n' && getchar() != EOF);
+    while((ch = getchar())!= '\n' && ch != EOF);
     
     // 
-    s_Node->next = temp1;
+    s_Node->next = Head;
     Head = s_Node;
 
     printf("\nNode added Successfully!\n");
@@ -178,7 +177,10 @@ void add_At_Spec_Pos(){
 
         printf("New Node at %dth Position added Successfully!\n", pos);
 
-    } else{
+    } else if(pos == 1){
+        add_beginning();
+
+    }else{
         printf("Invalid  Position!\n");
         return;
     }
