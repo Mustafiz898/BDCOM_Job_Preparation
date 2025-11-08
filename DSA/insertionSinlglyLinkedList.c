@@ -7,15 +7,14 @@ typedef struct node{
     struct node * next;
 }node;
 
-struct node * Head = NULL, *temp = NULL;
+struct node * Head = NULL;
 
-enum number{a=1,b,c,d,e,f}; // Use of enum for handling invalid choice in the main function
+enum number{a=1,b,c,d,e}; // Use of enum for handling invalid choice in the main function
 
 //_____________Function Prototyping__________
-void add_Node();
+void add_Node_End();
 void add_beginning();
-// void add_end();
-// void add_At_Spec_Pos();
+void add_At_Spec_Pos();
 void Display();
 
 
@@ -25,12 +24,11 @@ int main(){
     node * current, *NXT;
 
     printf("________MAIN MENU_________\n\n");
-    printf("1.Add Node\n");
+    printf("1.Add Node / Add at the end \n");
     printf("2.Add at the beginning\n");
-    printf("3.Add at the end\n");
-    printf("4.After Specific Position\n");
-    printf("5.Display\n");
-    printf("6.Exit\n");
+    printf("3.At Specific Position\n");
+    printf("4.Display\n");
+    printf("5.Exit\n");
     
 
     while(1){
@@ -46,21 +44,18 @@ int main(){
 
         switch(ch){
             case a:
-                add_Node();
+                add_Node_End();
                 break;
             case b:
                 add_beginning();
                 break;
-            /*case c:
-                add_end();
+            case c:
+                add_At_Spec_Pos();
                 break;
             case d:
-                add_At_Spec_Pos();*/
-            case e:
                 Display();
                 break;
-            case f:
-                
+            case e:   
                 current = Head;
                 while(current != NULL){
                     NXT = current->next;
@@ -68,6 +63,7 @@ int main(){
                     current = NXT;
                 }
                 exit(0);
+
             default:
                 printf("Invalid input!\n");
                 break;
@@ -77,10 +73,13 @@ int main(){
     return 0;
 }
 
-//__________________Add New Node________________
+//__________________Add New Node Or Insert Node at the End________________
 
-void add_Node(){
+void add_Node_End(){
     int ch;
+    node * temp;
+    temp = Head;
+
     node * new_Node = (node*) malloc(sizeof(node));
     if(new_Node == NULL){
         printf("New Node Creation Error!!");
@@ -95,8 +94,11 @@ void add_Node(){
     if(Head == NULL){
         Head = temp = new_Node;
     } else{
+        while(temp->next != NULL){
+            temp = temp->next;
+
+        }
         temp->next = new_Node;
-        temp = new_Node;
     }
 }
 
@@ -129,9 +131,56 @@ void add_beginning(){
     scanf("%d", &s_Node->data);
     while(getchar()!= '\n' && getchar() != EOF);
     
-
+    // 
     s_Node->next = temp1;
     Head = s_Node;
 
     printf("\nNode added Successfully!\n");
+}
+
+//____________________Insert Node After Any Position_______________
+void add_At_Spec_Pos(){
+    unsigned int pos, counter = 1;
+    node * temp, *n_Node;
+    temp = Head;
+
+    printf("Enter the position for New Node: ");
+    scanf("%d", &pos);
+
+    if(Head == NULL){
+        printf("No Node Present!\n");
+        return;
+    }
+
+    while(temp->next != NULL){
+        counter++;
+        temp = temp->next;
+    }
+
+    if(counter > pos-1 && pos>1){
+        temp = Head;
+        for(int i=1; i< (pos-1); i++){
+            temp = temp->next;
+        }
+
+        n_Node = (node*) malloc(sizeof(node));
+        if(n_Node == NULL){
+            printf("n_Node Error!\n");
+            exit(1);
+        }
+
+        printf("Enter the data for n_Node: ");
+        scanf("%d", &n_Node->data);
+        while(getchar() != '\n' && getchar() != EOF);
+
+        n_Node->next = temp->next;
+        temp->next = n_Node;
+
+        printf("New Node at %dth Position added Successfully!\n", pos);
+
+    } else{
+        printf("Invalid  Position!\n");
+        return;
+    }
+
 }
