@@ -45,7 +45,7 @@ int main(){
 // ________________ ADD NODE____________
 
 void addNode(){
-    char name[30];
+    char name[30]; // Creating a local array to store input from the user 
     node *newNode = NULL;
 
     printf("Enter the Data (Name): ");
@@ -59,29 +59,31 @@ void addNode(){
         printf("Return Valid Input!");
         return;
     }
-
+    
+    // Allocating emmory for newNode
     newNode = (node*) malloc(sizeof(node));
     if(newNode == NULL){
         printf("Error!!");
         exit(1);
     }
     
+    //Allocating memory for data within new node
     newNode->name = malloc(len+1);
     if(newNode->name == NULL){
         printf("Name input ERROR!");
         free(newNode);
         exit(1);
     } else{
-        strcpy(newNode->name, name);
-    }
+        strcpy(newNode->name, name); // Copy Data from local array to the allocated memory block for data
+    }   
 
     
     newNode->next = NULL;
 
     if(Head == NULL){
-        Head = temp = newNode;
+        Head = temp = newNode;  // If there is only one node
     } else{
-        temp->next = newNode;
+        temp->next = newNode;  // If there is more than one nodes
         temp = newNode;
     }
 
@@ -95,4 +97,5 @@ void display(node * head){
         printf("%s ", temp->name);
         temp = temp->next;
     }
+    
 }
