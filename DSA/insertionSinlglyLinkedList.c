@@ -9,11 +9,11 @@ typedef struct node{
 
 struct node * Head = NULL, *temp = NULL;
 
-enum number{a=1,b,c,d,e,f};
+enum number{a=1,b,c,d,e,f}; // Use of enum for handling invalid choice in the main function
 
 //_____________Function Prototyping__________
 void add_Node();
-// void add_beginning();
+void add_beginning();
 // void add_end();
 // void add_At_Spec_Pos();
 void Display();
@@ -42,16 +42,16 @@ int main(){
             continue;
         }
 
-        enum number ch = (enum number) choice;
+        enum number ch = (enum number) choice;  // In case, if user input any invalid number except menu number
 
         switch(ch){
             case a:
                 add_Node();
                 break;
-            /*case b:
+            case b:
                 add_beginning();
                 break;
-            case c:
+            /*case c:
                 add_end();
                 break;
             case d:
@@ -103,11 +103,35 @@ void add_Node(){
 //___________________Display Linked List_____________
 
 void Display(){
-    temp = Head;
+    node * temp1;
+    temp1 = Head;
 
-    while(temp != NULL){
-        printf("%d ", temp->data);
-        temp = temp->next;
+    while(temp1 != NULL){
+        printf("%d ", temp1->data);
+        temp1 = temp1->next;
     }
     printf("\n");
+}
+
+//__________________Insertion at beginning________________
+
+void add_beginning(){
+    node * temp1;
+    temp1 = Head;
+
+    node *s_Node = (node*) malloc(sizeof(node));
+    if(s_Node == NULL){
+        printf("Start Node Creation Error!\n");
+        exit(1);
+    }
+
+    printf("Enter the data: ");
+    scanf("%d", &s_Node->data);
+    while(getchar()!= '\n' && getchar() != EOF);
+    
+
+    s_Node->next = temp1;
+    Head = s_Node;
+
+    printf("\nNode added Successfully!\n");
 }
