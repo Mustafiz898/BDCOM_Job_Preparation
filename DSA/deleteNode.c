@@ -185,6 +185,11 @@ void delete_at_specific(){
     scanf("%d", &pos);
     while((ch = getchar()) != '\n' && ch != EOF);
 
+    if(pos == 1){
+        delete_at_start();
+        return;
+    }
+
     if(head == NULL){
         printf("\nNo node to delete!\n");
         return;
