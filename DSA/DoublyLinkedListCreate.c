@@ -23,7 +23,7 @@ int main(){
     printf("\t\t\t\t\t________MAIN MENU_________\n\n");
     printf("\t\t\t\t\t1.Add Node\n");
     printf("\t\t\t\t\t2.Display the list\n");
-    printf("\t\t\t\t\t4.EXIT\n\n");
+    printf("\t\t\t\t\t3.EXIT\n\n");
 
     while(1){
         printf("\nEnter choice: ");
@@ -68,7 +68,12 @@ void add_node(){
     }
 
     printf("Enter the Data: ");
-    scanf("%d", &new_Node->data);
+    if(scanf("%d", &new_Node->data) != 1){
+        printf("Opps! Couldn't take Data input...\n");
+        free(new_Node);
+        return;
+    }
+
     new_Node->prev = NULL;
     new_Node->next = NULL;
 
@@ -89,13 +94,14 @@ void add_node(){
 
 // ---------------------- DISPLAY LIST ------------------------
 void display(){
-    node * temp = head;
     printf("\t\t\t\t\tRemaining LIST\n");
-
+    
     if(head == NULL){                       // If there is no node 
         printf("No List to show!\n");
         return;
     }
+
+    node * temp = head;
     while(temp != NULL){                   // traverse till there's no node left
         printf("%d ", temp->data);
         temp = temp->next;
