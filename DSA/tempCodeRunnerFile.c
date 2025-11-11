@@ -1,3 +1,2 @@
-void delete_at_start();
-// void delete_at_end();
-// void delete_at_specific();
+            // case 3: reverse_list();
+            //         break;
