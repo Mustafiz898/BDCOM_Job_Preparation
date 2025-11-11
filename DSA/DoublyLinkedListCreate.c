@@ -12,20 +12,20 @@ typedef struct node{
 node *head = NULL;
 
 //---------------------------------------------
+void show_menu();
 void add_node();
 void display();
+void add_node_at_beginning();
+void add_node_at_specific_position();
 
 //---------------------------------------------
 int main(){
     int choice;
     node *CRT, *NXT;
 
-    printf("\t\t\t\t\t________MAIN MENU_________\n\n");
-    printf("\t\t\t\t\t1.Add Node\n");
-    printf("\t\t\t\t\t2.Display the list\n");
-    printf("\t\t\t\t\t3.EXIT\n\n");
 
     while(1){
+        show_menu();
         printf("\nEnter choice: ");
         if(scanf("%d", &choice) != 1){                  // In case user input character rather than number
             while((null_rmv = getchar()) != '\n' && null_rmv != EOF);
@@ -41,13 +41,19 @@ int main(){
                     break;
             case 2: display();
                     break;
-            case 3: printf("Exting the program..............\n\n");
+            case 3: add_node_at_beginning();
+                    break;
+            case 4: add_node_at_specific_position();
+                    break;
+
+            case 5: printf("Exting the program..............\n\n");
                     CRT = head;
                     while(CRT != NULL){
                         NXT = CRT->next;
                         free(CRT);
                         CRT = NXT;
                     }
+                    head = NULL;
                     exit(1);
 
             default: printf("Invalid Choice\n");
@@ -57,6 +63,18 @@ int main(){
     }
 
     return 0;
+}
+
+//------------------------Show Menu -------------------------
+
+void show_menu(){
+    printf("\n");
+    printf("\t\t\t\t\t________MAIN MENU_________\n\n");
+    printf("\t\t\t\t\t1.Add Node\n");
+    printf("\t\t\t\t\t2.Display the list\n");
+    printf("\t\t\t\t\t3.Insert node at the beginning\n");
+    printf("\t\t\t\t\t4.Insert node at specific position\n\n");
+    printf("\t\t\t\t\t5.EXIT\n\n");
 }
 
 // ----------------------- ADD NODE -------------------------
@@ -94,7 +112,7 @@ void add_node(){
 
 // ---------------------- DISPLAY LIST ------------------------
 void display(){
-    printf("\t\t\t\t\tRemaining LIST\n");
+    printf("\t\t\t\t\t_________Display LIST___________\n\n");
     
     if(head == NULL){                       // If there is no node 
         printf("No List to show!\n");
@@ -108,3 +126,105 @@ void display(){
     }
     printf("\n");
 }
+
+//---------------------------ADD NODE AT THE BEGINNING ----------------------
+void add_node_at_beginning(){
+    node * newNode = (node*)malloc(sizeof(node));
+    if(newNode == NULL){
+        printf("Failed to add 1st node!\n");
+        return;
+    }
+
+    printf("Enter the data: ");
+    if(scanf("%d",&newNode->data) != 1){
+        printf("failed to take input!\n");
+        free(newNode);
+        return;
+    }
+    newNode->next = NULL;
+    newNode->prev = NULL;
+
+    if(head == NULL){
+        head = newNode;
+    } else{
+        head->prev = newNode;
+        newNode->next = head;
+        head = newNode;
+    }
+    printf("Node added successfully!\n");
+
+}
+
+//--------------------------------INSERT NODE AT SPECIFIC POSITION-------------------
+
+void add_node_at_specific_position(){
+    int pos, counter = 0;
+    node * temp = head;
+
+    // If there is no node present 
+    if(head == NULL){
+        printf("There is no list present!\n");
+        return;
+    }
+    // Count the total nodes
+    while(temp != NULL){
+        counter++;
+        temp = temp->next;
+    }
+    temp = head;
+
+
+    // Ask for the position from user 
+    printf("Enter the position: ");
+    if(scanf("%d",&pos) != 1){
+        printf("Invalid Position!\n");
+        return;
+    }
+
+    // If there is only one node
+    if(pos ==1){                     
+        add_node_at_beginning();
+        return;
+    }
+
+    if(counter >= pos){                                // CASE 1
+
+        node * newNode = (node*)malloc(sizeof(node));
+        if(newNode == NULL){
+            printf("Failed to add 1st node!\n");
+            return;
+        }
+    
+        printf("Enter the data: ");
+        if(scanf("%d",&newNode->data) != 1){
+            printf("failed to take input!\n");
+            free(newNode);
+            return;
+        }
+        newNode->next = NULL;
+        newNode->prev = NULL;
+
+
+        // If there is more than one node present
+        int current = 1;
+        while(current < pos-1 ){
+            temp = temp->next;
+            current++;
+        }
+
+        newNode->next = temp->next;
+        if(temp->next != NULL){
+            temp->next->prev = newNode;
+        }
+        temp->next = newNode;
+        newNode->prev = temp;
+    
+
+        printf("Node added successfully\n");
+        
+    } else{                                                 //CASE 2
+        printf("Position is greater than node number\n");
+        return;
+    }
+
+}    
