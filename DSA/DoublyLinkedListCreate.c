@@ -18,6 +18,8 @@ void display();
 void add_node_at_beginning();
 void add_node_at_specific_position();
 void add_node_AFTER_specific_position();
+void delete_at_the_beginning();
+void delete_node_at_specific_pos();
 
 //---------------------------------------------
 int main(){
@@ -48,8 +50,12 @@ int main(){
                     break;
             case 5: add_node_AFTER_specific_position();
                     break;
+            case 6: delete_at_the_beginning();
+                    break;
+            case 7: delete_node_at_specific_pos();
+                    break;
 
-            case 6: printf("Exting the program..............\n\n");
+            case 8: printf("Exting the program..............\n\n");
                     CRT = head;
                     while(CRT != NULL){
                         NXT = CRT->next;
@@ -78,7 +84,9 @@ void show_menu(){
     printf("\t\t\t\t\t3.Insert node at the beginning\n");
     printf("\t\t\t\t\t4.Insert node at specific position\n");
     printf("\t\t\t\t\t5.Insert a node AFTER specific position\n");
-    printf("\t\t\t\t\t6.EXIT\n\n");
+    printf("\t\t\t\t\t6 Delete node at the beginning\n");
+    printf("\t\t\t\t\t7.Delete Node at specific Position\n");
+    printf("\t\t\t\t\t8.EXIT\n\n");
 }
 
 // ----------------------- ADD NODE -------------------------
@@ -305,3 +313,68 @@ void add_node_AFTER_specific_position(){
     }
 
 } 
+
+//---------------------------------DELETE NODE AT THE BEGINNING--------------------------
+void delete_at_the_beginning(){
+
+    if(head == NULL){
+        printf("No node present\n");
+        return;
+    } else{
+        node * temp = head->next;
+        free(head);
+        head = temp;
+
+        printf("1st node deleted successfully!");
+        return;
+
+    }
+
+}
+
+// --------------------------------DELETE NODE AT THE END--------------------------------
+void delete_node_at_specific_pos(){
+    int pos, counter=0;
+    
+
+    printf("Enter the Position of the Node to Delete: ");
+    if(scanf("%d", &pos) != 1){                            // In case user input any character instead of integer 
+        printf("Invalid Position!");
+        return;
+    }
+    while((null_rmv = getchar()) != '\n' && null_rmv != EOF);
+
+    node * temp = head;
+    // Count the number of node
+    while(temp != NULL){
+        counter++;
+        temp = temp->next;
+    }
+
+    if(head == NULL){                     // If there is no node present to delete 
+        printf("No node present to delete!\n");
+        return;
+        
+    } else if(pos == 1){                // In case there is only one node present
+        delete_at_the_beginning();
+        return;
+    } else{
+        temp = head;
+
+        int current = 1;
+        while(current < pos){          // Traverse till specific position 
+            temp = temp->next;
+            current++;
+        }
+        
+        if(temp->next != NULL){          // Condition check if it's not the last node
+            temp->next->prev = temp->prev;
+        }
+        temp->prev->next = temp->next;
+
+        free(temp);
+        printf("Specific Node Deleted Successfully\n");
+        return;
+    }
+
+}
