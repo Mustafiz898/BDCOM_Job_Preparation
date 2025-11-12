@@ -17,6 +17,7 @@ void add_node();
 void display();
 void add_node_at_beginning();
 void add_node_at_specific_position();
+void add_node_AFTER_specific_position();
 
 //---------------------------------------------
 int main(){
@@ -45,8 +46,10 @@ int main(){
                     break;
             case 4: add_node_at_specific_position();
                     break;
+            case 5: add_node_AFTER_specific_position();
+                    break;
 
-            case 5: printf("Exting the program..............\n\n");
+            case 6: printf("Exting the program..............\n\n");
                     CRT = head;
                     while(CRT != NULL){
                         NXT = CRT->next;
@@ -73,8 +76,9 @@ void show_menu(){
     printf("\t\t\t\t\t1.Add Node\n");
     printf("\t\t\t\t\t2.Display the list\n");
     printf("\t\t\t\t\t3.Insert node at the beginning\n");
-    printf("\t\t\t\t\t4.Insert node at specific position\n\n");
-    printf("\t\t\t\t\t5.EXIT\n\n");
+    printf("\t\t\t\t\t4.Insert node at specific position\n");
+    printf("\t\t\t\t\t5.Insert a node AFTER specific position\n");
+    printf("\t\t\t\t\t6.EXIT\n\n");
 }
 
 // ----------------------- ADD NODE -------------------------
@@ -182,7 +186,7 @@ void add_node_at_specific_position(){
     }
 
     // If there is only one node
-    if(pos ==1){                     
+   if(pos ==1){                     
         add_node_at_beginning();
         return;
     }
@@ -228,3 +232,76 @@ void add_node_at_specific_position(){
     }
 
 }    
+
+//-----------------------INSERT A NODE AFTER A SPECIFIC POSITION------------------
+void add_node_AFTER_specific_position(){
+    int pos, counter = 0;
+    node * temp = head;
+
+    // If there is no node present 
+    if(head == NULL){
+        printf("There is no list present!\n");
+        return;
+    }
+    // Count the total nodes
+    while(temp != NULL){
+        counter++;
+        temp = temp->next;
+    }
+    temp = head;
+
+
+    // Ask for the position from user 
+    printf("Enter the position: ");
+    if(scanf("%d",&pos) != 1){
+        printf("Invalid Position!\n");
+        return;
+    }
+
+    // If there is only one node
+   /*if(pos ==1){                     
+        add_node_at_beginning();
+        return;
+    }*/
+
+    if(counter >= pos){                                // CASE 1
+
+        node * newNode = (node*)malloc(sizeof(node));
+        if(newNode == NULL){
+            printf("Failed to add 1st node!\n");
+            return;
+        }
+    
+        printf("Enter the data: ");
+        if(scanf("%d",&newNode->data) != 1){
+            printf("failed to take input!\n");
+            free(newNode);
+            return;
+        }
+        newNode->next = NULL;
+        newNode->prev = NULL;
+
+
+        // If there is more than one node present
+        int current = 1;
+        while(current < pos){
+            temp = temp->next;
+            current++;
+        }
+
+        newNode->next = temp->next;
+        if(temp->next != NULL){
+            temp->next->prev = newNode;
+        }
+        temp->next = newNode;
+        newNode->prev = temp;
+    
+
+        printf("Node added successfully\n");
+        
+    } else{                                                 //CASE 2
+        printf("Position is greater than node number\n");
+        return;
+    }
+
+} 
