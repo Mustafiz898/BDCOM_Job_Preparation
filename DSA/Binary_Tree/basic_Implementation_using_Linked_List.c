@@ -23,6 +23,8 @@ typedef struct node{
 // _____________Function__________
 node * createNode(int value);
 node inorderTraversal(node * root);
+node preorderTraversal(node *root);
+node postorderTraversal(node *root);
 //_____________________________________
 
 
@@ -43,7 +45,10 @@ int main(){
     // Traversing and printing the tree
     inorderTraversal(root);
     printf("\n");
-
+    preorderTraversal(root);
+    printf("\n");
+    postorderTraversal(root);
+    printf("\n");
 
     return 0;
 }
@@ -79,5 +84,25 @@ node  inorderTraversal(node * root){
         inorderTraversal(root->left);
         printf("%d ", root->data);
         inorderTraversal(root->right);
+    }
+}
+
+//_______________Preorder Traversal_________
+
+node preorderTraversal(node *root){
+    if(root != NULL){
+        printf("%d ", root->data);
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+    }
+}
+
+//_______________Postorder Traversal_________
+
+node postorderTraversal(node *root){
+    if(root != NULL){
+        postorderTraversal(root->left);
+        postorderTraversal(root->right);
+        printf("%d ", root->data);
     }
 }
