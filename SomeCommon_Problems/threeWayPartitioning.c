@@ -63,13 +63,13 @@ void partition(int *arr, int n){
     int high = n-1;                      // Start boundary----> true
 
     while(mid <= high){                       
-        if(arr[mid] == 0){                 // if arr[mid] == true
+        if(arr[mid] == 0){                 
             swap(&arr[mid], &arr[low]);       // if arr[mid] == false, increse index for mid and low
             mid++;
             low++;
         } else if(arr[mid] == 1){
             mid++;                           // if arr[mid] == maybe
-        } else{
+        } else{                             // if arr[mid] == true
             swap(&arr[mid], &arr[high]);
             high--;                           // reduce the high index , not change mid
 
